@@ -6,17 +6,20 @@ import axios from "axios";
 import { FaFilter, FaHeart } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
-import { motion } from "framer-motion";  // Import motion
+import { motion } from "framer-motion";
 
 const MannualData = () => {
   const [brandData, setBrandData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [category_id, setCategoryId] = useState();
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [search, setSearch] = useState("");
+  const [priceRange, setPriceRange] = useState(1000);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const { state } = useLocation();
 
-  const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);init
+  const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
   useEffect(() => {
     state?.c_id && setCategoryId(state?.c_id);
@@ -46,9 +49,15 @@ const MannualData = () => {
     fetchData();
   }, []);
 
-  const req = { category_id };
+  const req = {
+    category_id,
+    brand_id: selectedBrand,
+    search_text: search,
+    price: priceRange,
+  };
+
   const { data, isLoading } = useQuery({
-    queryKey: ["dataFilter", state, category_id],
+    queryKey: ["dataFilter", category_id, selectedBrand, search, priceRange],
     queryFn: () => Datafilter(req),
   });
 
@@ -57,6 +66,72 @@ const MannualData = () => {
   const handlePress = (id, variant_id, slug) => {
     console.log("Navigate to:", id, variant_id, slug);
   };
+
+  const FilterPanel = (
+    <>
+      <div>
+        <label className="text-sm font-semibold text-gray-700 mb-2 block">Search</label>
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+        />
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-blue-700 mb-2">Category</h3>
+        <div className="flex flex-wrap gap-2">
+          {categoryData.map((cat, index) => (
+            <span
+              key={index}
+              onClick={() => setCategoryId(cat?.id)}
+              className={`px-3 py-1 ${
+                category_id === cat?.id ? "bg-blue-500 text-white" : "bg-blue-100 text-blue-700"
+              } rounded-full text-sm font-medium hover:bg-blue-200 cursor-pointer transition`}
+            >
+              {cat?.category}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-teal-700 mb-2">Brand</h3>
+        <div className="flex flex-wrap gap-2">
+          {brandData.map((brand, index) => (
+            <span
+              key={index}
+              onClick={() => setSelectedBrand(brand?.id)}
+              className={`px-3 py-1 ${
+                selectedBrand === brand?.id ? "bg-teal-500 text-white" : "bg-teal-100 text-teal-700"
+              } rounded-full text-sm font-medium hover:bg-teal-200 cursor-pointer transition`}
+            >
+              {brand?.Meta_Title}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-pink-700 mb-2">Price Range</h3>
+        <input
+          type="range"
+          min="0"
+          max="1000"
+          step="10"
+          value={priceRange}
+          onChange={(e) => setPriceRange(Number(e.target.value))}
+          className="w-full accent-pink-500"
+        />
+        <div className="flex justify-between text-sm mt-1 text-gray-600">
+          <span>₹0</span>
+          <span>₹{priceRange}</span>
+        </div>
+      </div>
+    </>
+  );
 
   return (
     <div className="p-4 md:p-6 bg-gradient-to-br from-purple-200 via-blue-100 to-teal-100 min-h-screen">
@@ -88,113 +163,16 @@ const MannualData = () => {
           </div>
 
           <div className="space-y-6">
-            <div>
-              <label className="text-sm font-semibold text-gray-700 mb-2 block">Search</label>
-              <input
-                type="text"
-                placeholder="Search products..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-              />
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-blue-700 mb-2">Category</h3>
-              <div className="flex flex-wrap gap-2">
-                {categoryData.map((cat, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 cursor-pointer transition"
-                  >
-                    {cat?.category}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-teal-700 mb-2">Brand</h3>
-              <div className="flex flex-wrap gap-2">
-                {brandData.map((brand, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium hover:bg-teal-200 cursor-pointer transition"
-                  >
-                    {brand?.Meta_Title}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-pink-700 mb-2">Price Range</h3>
-              <input type="range" min="0" max="1000" step="10" className="w-full accent-pink-500" />
-              <div className="flex justify-between text-sm mt-1 text-gray-600">
-                <span>₹0</span>
-                <span>₹1000</span>
-              </div>
-            </div>
-
-            <button className="w-full py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-lg hover:opacity-90 transition">
-              Apply Filters
-            </button>
+            {FilterPanel}
           </div>
         </motion.div>
       </Dialog>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {/* Sidebar - Desktop Only */}
+        {/* Sidebar - Desktop */}
         <aside className="col-span-1 hidden md:block p-5 rounded-2xl shadow-lg backdrop-blur-md bg-white/80 border border-purple-200 space-y-6">
           <h2 className="text-3xl font-bold text-purple-800">Filters 🎯</h2>
-
-          <div>
-            <label className="text-sm font-semibold text-gray-700 mb-2 block">Search</label>
-            <input
-              type="text"
-              placeholder="Search products..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-            />
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold text-blue-700 mb-2">Category</h3>
-            <div className="flex flex-wrap gap-2">
-              {categoryData.map((cat, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 cursor-pointer transition"
-                >
-                  {cat?.category}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold text-teal-700 mb-2">Brand</h3>
-            <div className="flex flex-wrap gap-2">
-              {brandData.map((brand, index) => (
-                <span
-                  key={index}
-                  className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium hover:bg-teal-200 cursor-pointer transition"
-                >
-                  {brand?.Meta_Title}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold text-pink-700 mb-2">Price Range</h3>
-            <input type="range" min="0" max="1000" step="10" className="w-full accent-pink-500" />
-            <div className="flex justify-between text-sm mt-1 text-gray-600">
-              <span>₹0</span>
-              <span>₹1000</span>
-            </div>
-          </div>
-
-          <button className="w-full py-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold rounded-lg hover:opacity-90 transition">
-            Apply Filters
-          </button>
+          {FilterPanel}
         </aside>
 
         {/* Product Grid */}
