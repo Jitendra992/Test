@@ -2,6 +2,8 @@ import path from "path";
 import Home from "../Pages/Home";
 import Details1 from "../Componant/Details1";
 import MannualData from "../Componant/MannualData";
+import SignupPage from "../Componant/Signup";
+import Cart from "../Componant/Cart";
 
 
 
@@ -24,6 +26,17 @@ export const routes=[
         id:3,
         path:"/product",
         element:<MannualData/>
+    },
+    {
+        id:4,
+        path:"/signup",
+        element:<SignupPage/>
+
+    },
+    {
+        id:5,
+        path:"/Cart",
+        element:<Cart/>
     }
 
    

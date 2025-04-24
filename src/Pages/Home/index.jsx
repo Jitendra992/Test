@@ -42,6 +42,7 @@ const Home = () => {
    <Section13/>
    <Section14/>
    <Section15/>
+   
 
    {/* <Details/> */}
 

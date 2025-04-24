@@ -17,6 +17,8 @@ import { GrUserSettings } from "react-icons/gr";
 import { HiBuildingStorefront } from "react-icons/hi2";
 import { Button, Collapse, Drawer } from '@mui/material';
 import Logo from '../assets/Logo.png';
+import { useNavigate } from 'react-router-dom';
+import LoginModal from '../Componant/Modal/Index';
 
 const Crazzyhub = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -24,6 +26,10 @@ const Crazzyhub = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchAction, setSearchAction] = useState(false);
+  const navigate = useNavigate();
+  const [open,setOpen]=React.useState(false)
+  const [cartOpen, setCartOpen] = React. useState(false);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,7 +87,22 @@ const Crazzyhub = () => {
     { label: "Cart", icon: FaShoppingCart, count: "₹0", color: "text-emerald-400" },
     { label: "My Account", icon: FaUser, count: "Sign In", color: "text-yellow-500" }
   ];
+  
 
+
+  const handleItemClick = (index) => {
+     console.log(index,"hii im index")
+    if (index === 0) {
+      navigate("/signup") 
+    }
+  };
+
+  const handleItemClick2 = (index) => {
+    console.log(index,"hii im index")
+   if (index === 0) {
+     navigate("/signup") 
+   }
+ };
   return (
     <div className={`max-w-[1600px] m-auto sticky top-0 z-50 bg-white text-black transition-all duration-300 ${scrolled ? 'shadow-xl' : 'shadow-sm'}`}>
       <div className="max-w-[1600px] m-auto flex items-center justify-between px-4 md:px-12 py-4 bg-gradient-to-r from-purple-900 to-indigo-700 rounded-b-xl shadow-lg">
@@ -137,7 +158,6 @@ const Crazzyhub = () => {
             </button>
           </div>
 
-          {/* Mobile Action Icons */}
           <div className="flex md:hidden items-center space-x-4 text-white mr-2">
             <button className="text-red-500 relative">
               <FaHeart size={18} />
@@ -154,8 +174,8 @@ const Crazzyhub = () => {
 
           <div className="hidden md:flex gap-x-10 text-white font-semibold">
             {menuItems.map((item, idx) => (
-              <div key={idx} className="flex flex-col items-center hover:text-gray-200">
-                <span className="text-xs uppercase tracking-wide">{item.label}</span>
+              <div key={idx} className="flex flex-col items-center hover:text-gray-200 cursor-pointer"  onClick={() =>item?.label==="My Account"&&setOpen(true) ||"Cart" &&setCartOpen(true)}>
+                <span className="text-xs uppercase tracking-wide">{item?.label}</span>   
                 <span className={`flex items-center gap-1 text-base ${item.color}`}>
                   {item.count} <item.icon/>
                 </span>
@@ -175,14 +195,14 @@ const Crazzyhub = () => {
       <div className="max-w-[1600px] m-auto hidden lg:flex justify-center gap-10 bg-white py-3 text-sm font-medium shadow-inner border-t">
         {categories.map((category) => (
           <div
-            key={category.id}
+            key={category?.id}
             className="relative group"
-            onMouseEnter={() => setActiveDropdown(category.id)}
+            onMouseEnter={() => setActiveDropdown(category?.id)}
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <div className="flex items-center gap-2 cursor-pointer text-purple-700 hover:text-purple-500">
               <category.icon className='' />
-              {category.name}
+              {category?.name}
             </div>
             {activeDropdown === category?.id && (
               <div className="absolute left-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl z-40 p-4 border-t-4 border-purple-600">
@@ -265,6 +285,7 @@ const Crazzyhub = () => {
           </div>
         </div>
       </Drawer>
+      <LoginModal setOpen={setOpen} open={open} />
     </div>
   );
 };
