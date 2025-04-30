@@ -19,6 +19,10 @@ import { Button, Collapse, Drawer } from '@mui/material';
 import Logo from '../assets/Logo.png';
 import { useNavigate } from 'react-router-dom';
 import LoginModal from '../Componant/Modal/Index';
+import CartModal from '../Componant/Modal2/Index';
+import Wishlist from '../Componant/Wishlist';
+import WishModal from '../Componant/WishModal/Index';
+
 
 const Crazzyhub = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -29,6 +33,7 @@ const Crazzyhub = () => {
   const navigate = useNavigate();
   const [open,setOpen]=React.useState(false)
   const [cartOpen, setCartOpen] = React. useState(false);
+  const[wishOpen,SetWishOpen]=React.useState(false)
   
 
   useEffect(() => {
@@ -42,6 +47,7 @@ const Crazzyhub = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrolled]);
+  
 
   const categories = [
     {
@@ -103,6 +109,8 @@ const Crazzyhub = () => {
      navigate("/signup") 
    }
  };
+ 
+ 
   return (
     <div className={`max-w-[1600px] m-auto sticky top-0 z-50 bg-white text-black transition-all duration-300 ${scrolled ? 'shadow-xl' : 'shadow-sm'}`}>
       <div className="max-w-[1600px] m-auto flex items-center justify-between px-4 md:px-12 py-4 bg-gradient-to-r from-purple-900 to-indigo-700 rounded-b-xl shadow-lg">
@@ -160,21 +168,21 @@ const Crazzyhub = () => {
 
           <div className="flex md:hidden items-center space-x-4 text-white mr-2">
             <button className="text-red-500 relative">
-              <FaHeart size={18} />
+              <FaHeart onClick={()=>navigate("/Wishlist")}  size={18} />
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">0</span>
             </button>
             <button className="text-emerald-400 relative">
-              <FaShoppingCart size={18} />
+              <FaShoppingCart onClick={()=>navigate("/Cart")}  size={18} />
               <span className="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">0</span>
             </button>
             <button className="text-yellow-500">
-              <FaUser size={18} />
+              <FaUser onClick={()=>navigate("/Signup")} size={18} />
             </button>
           </div>
 
           <div className="hidden md:flex gap-x-10 text-white font-semibold">
             {menuItems.map((item, idx) => (
-              <div key={idx} className="flex flex-col items-center hover:text-gray-200 cursor-pointer"  onClick={() =>item?.label==="My Account"&&setOpen(true) ||"Cart" &&setCartOpen(true)}>
+              <div key={idx} className="flex flex-col items-center hover:text-gray-200 cursor-pointer"  onClick={() =>item?.label==="My Account"?setOpen(true):item?.label==="Cart"?setCartOpen(true):SetWishOpen(true)}>
                 <span className="text-xs uppercase tracking-wide">{item?.label}</span>   
                 <span className={`flex items-center gap-1 text-base ${item.color}`}>
                   {item.count} <item.icon/>
@@ -221,7 +229,7 @@ const Crazzyhub = () => {
         ))}
       </div>
 
-    {/* Mobile Bottom Navigation Bar */}
+ 
 <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-200 z-50 ">
   <div className="flex justify-around items-center py-2 px-3 ">
     <div className="flex flex-col items-center text-purple-700 ">
@@ -240,8 +248,11 @@ const Crazzyhub = () => {
       <FaHeart className="text-2xl" />
       <span className="text-[11px] font-semibold mt-1">Wishlist</span>
     </div>
+    
+
+
     <div className="flex flex-col items-center text-yellow-500">
-      <FaUser className="text-2xl" />
+      <FaUser  className="text-2xl" />
       <span className="text-[11px] font-semibold mt-1">Account</span>
     </div>
   </div>
@@ -286,6 +297,9 @@ const Crazzyhub = () => {
         </div>
       </Drawer>
       <LoginModal setOpen={setOpen} open={open} />
+
+      <CartModal setOpen={setCartOpen} open={cartOpen}/>
+      <WishModal setOpen={SetWishOpen} open={wishOpen}/>
     </div>
   );
 };

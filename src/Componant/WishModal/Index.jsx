@@ -5,20 +5,18 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 
-
-import Cart from '../Cart';
+import SignupPage from '../Signup';
+import Wishlist from '../Wishlist';
 
 const style = {
   position: 'absolute',
-  top:250,
-  
-  left:400,
+  top: '50%',
+  left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 1200,
-  height:900
 };
 
-export default function CartModal({setOpen=()=>{},open}) {
+export default function WishModal({setOpen=()=>{},open}) {
   
 
   const handleClose = () => setOpen(false);
@@ -42,8 +40,8 @@ export default function CartModal({setOpen=()=>{},open}) {
         <Fade in={open}>
           <Box sx={style}>
 
-          <Cart/>
-  
+          <Wishlist/>
+           
           </Box>
         </Fade>
       </Modal>

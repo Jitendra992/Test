@@ -5,11 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
 
-export default function BhaukaliSignin() {
+export default function Signin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl w-full p-8">
-        {/* 3D Model Side */}
+    
         <motion.div
           initial={{ opacity: 0, x: -60 }}
           animate={{ opacity: 1, x: 0 }}
@@ -21,7 +21,7 @@ export default function BhaukaliSignin() {
           </div>
         </motion.div>
 
-        {/* Form Side */}
+
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}

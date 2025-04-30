@@ -4,6 +4,8 @@ import Details1 from "../Componant/Details1";
 import MannualData from "../Componant/MannualData";
 import SignupPage from "../Componant/Signup";
 import Cart from "../Componant/Cart";
+import Payment from "../Componant/Payment";
+import Wishlist from "../Componant/Wishlist";
 
 
 
@@ -33,13 +35,23 @@ export const routes=[
         element:<SignupPage/>
 
     },
+
     {
         id:5,
         path:"/Cart",
         element:<Cart/>
-    }
+    },
+  {
+    id:6,
+    path:"/Payment",
+    element:<Payment/>
+  },
+  {
+    id:7,
+    path:"/Wishlist",
+    element:<Wishlist/>
+  }
 
-   
 
   
 
