@@ -10,6 +10,7 @@ import {
 export default function Footer() {
   return (
     <footer className="bg-white text-black py-5 px-6 border border-t-gray-200 shadow-md mt-10 ">
+    
       <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-10 mb-10 justify-center items-center text-base sm:text-lg font-semibold">
         <div className="flex items-center gap-2 border border-gray-300 p-2 rounded-sm">
           <FaYoutube className="text-red-600" /> <span>CrazzyHub</span>
@@ -61,6 +62,19 @@ export default function Footer() {
       <div className="text-center text-sm mt-10 border-t pt-4 font-semibold">
         ©2023 CRAZZYHUB RETAIL PVT. LTD. All Rights Reserved | Designed by Aara Technologies Pvt. Ltd.
       </div>
+
+       {/* <div className="w-[10%] h-[10%] rounded-full bg-white text-white text-center py-2 animate-pulse font-semibold fixed top-130 left-0 z-[500]">
+       <img className="w-full" src="https://www.citypng.com/public/uploads/preview/outline-whatsapp-wa-watsup-green-logo-icon-symbol-sign-png-701751695124303npsmzlcjyh.png"/>
+              <a
+              
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline ml-1 hover:text-green-100 transition-colors"
+              >
+                Click Here               
+              </a>
+            </div> */}
     </footer>
   );
 }

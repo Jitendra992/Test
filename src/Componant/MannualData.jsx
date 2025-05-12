@@ -61,7 +61,8 @@ const MannualData = () => {
     queryFn: () => Datafilter(req),
   });
 
-  const Product = data?.data?.data?.product_list;
+  const Product = data?.data?.data?.product_list
+
 
   const handlePress = (id, variant_id, slug) => {
     console.log("Navigate to:", id, variant_id, slug);
@@ -115,7 +116,7 @@ const MannualData = () => {
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-pink-700 mb-2">Price Range</h3>
+        <p className="text-lg font-semibold text-pink-700 mb-2">Price Range</p>
         <input
           type="range"
           min="0"
@@ -134,8 +135,9 @@ const MannualData = () => {
   );
 
   return (
+    
     <div className="p-4 md:p-6 bg-gradient-to-br from-purple-200 via-blue-100 to-teal-100 min-h-screen">
-      {/* Mobile Filter Button */}
+  
       <div className="md:hidden flex justify-end mb-4">
         <button
           onClick={toggleDrawer}
@@ -145,7 +147,7 @@ const MannualData = () => {
         </button>
       </div>
 
-      {/* Drawer for Mobile */}
+    
       <Dialog open={isDrawerOpen} onClose={toggleDrawer} className="relative z-50 md:hidden">
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <motion.div
@@ -169,13 +171,13 @@ const MannualData = () => {
       </Dialog>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {/* Sidebar - Desktop */}
+      
         <aside className="col-span-1 hidden md:block p-5 rounded-2xl shadow-lg backdrop-blur-md bg-white/80 border border-purple-200 space-y-6">
-          <h2 className="text-3xl font-bold text-purple-800">Filters 🎯</h2>
+          <p className="text-3xl font-bold text-purple-800">Filters 🎯</p>
           {FilterPanel}
         </aside>
 
-        {/* Product Grid */}
+      
         <motion.main
           className="col-span-1 md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           initial="hidden"

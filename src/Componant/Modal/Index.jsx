@@ -12,8 +12,15 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 1200,
+  width: '90%',
+  maxWidth: 1200,
+
+  overflowY: 'auto',
+  backgroundColor: '#fff',
+  padding: '10px',
+ 
 };
+
 
 export default function LoginModal({setOpen=()=>{},open}) {
   

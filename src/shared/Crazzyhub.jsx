@@ -112,7 +112,10 @@ const Crazzyhub = () => {
  
  
   return (
+    
     <div className={`max-w-[1600px] m-auto sticky top-0 z-50 bg-white text-black transition-all duration-300 ${scrolled ? 'shadow-xl' : 'shadow-sm'}`}>
+    
+
       <div className="max-w-[1600px] m-auto flex items-center justify-between px-4 md:px-12 py-4 bg-gradient-to-r from-purple-900 to-indigo-700 rounded-b-xl shadow-lg">
         <div className="flex items-center gap-4">
           <div className="absolute top-[-10px] left-12 md:left-1/2 transform -translate-x-1/2 z-20">

@@ -75,7 +75,7 @@ const Wishlist = () => {
                 </span>
               </div>
               <button
-                onClick={() => deleteItem(item.id)}
+                onClick={() => deleteItem(item?.id)}
                 className="text-red-500 hover:text-red-600 transition"
               >
                 <Trash2 className="w-5 h-5" />

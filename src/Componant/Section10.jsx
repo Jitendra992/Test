@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import { useQuery } from "@tanstack/react-query";
 import { GetSecondData } from "../services/Maincontent/Index";
 import Slider from "react-slick";

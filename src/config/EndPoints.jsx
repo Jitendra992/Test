@@ -5,6 +5,7 @@ export const EndPoints={
     mainCatogary:"api/product-list-by-main-category-list/",
     dataFilter:"api/all-filter-product-list",
     productdetails:"api/product-details-api/",
+    Login:"api/login/"
    
     
 
